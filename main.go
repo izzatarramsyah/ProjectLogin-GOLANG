@@ -45,7 +45,7 @@ func main() {
 	r.Post("/User/ListUsers", userController.GetUsers)
 	r.Post("/User/UserLogin", userController.UserLogin)
 
-	http.ListenAndServe(":8083", r)
+	http.ListenAndServe(":8080", r)
 }
 
 func getFilePathConfigEnvirontment() string {
