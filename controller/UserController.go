@@ -2,11 +2,11 @@ package controller
 
 import (
 	"log"
-	"../models"
+	"github.com/izzatarramsyah/ProjectLogin-GOLANG/models"
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
-	"../interfaces"
+	"github.com/izzatarramsyah/ProjectLogin-GOLANG/interfaces"
 )
 
 var err error
@@ -90,6 +90,19 @@ func (controller *UserController) UserLogin(w http.ResponseWriter, r *http.Reque
 		Message = "User Is Not Valid "
 	}
 
+	commonResponse := models.Wrap("200", Message)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(commonResponse)
+}
+
+func (controller *UserController) Test(w http.ResponseWriter, r *http.Request){
+	log.Println("Endpoint Hit: Test")
+
+	var Message string
+
+	Message = "Success Hit"
+	
 	commonResponse := models.Wrap("200", Message)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

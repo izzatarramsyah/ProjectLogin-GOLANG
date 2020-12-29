@@ -1,7 +1,7 @@
 package interfaces
 
 import(
-	"../models"
+	"github.com/izzatarramsyah/ProjectLogin-GOLANG/models"
 )
 
 type UserRepository interface{

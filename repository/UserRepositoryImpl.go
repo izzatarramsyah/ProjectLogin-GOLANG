@@ -2,8 +2,8 @@ package repository
 
 import (
 	"log"
-	"../models"
-	_util "../util"
+	"github.com/izzatarramsyah/ProjectLogin-GOLANG/models"
+	_util "github.com/izzatarramsyah/ProjectLogin-GOLANG/util"
 	"database/sql"
 	"time"
 	"context"
@@ -52,16 +52,16 @@ func (repository *UserRepository) GetUserbyUsername(Username string) (users []mo
 	ctx, cancel := context.WithTimeout(repository.Ctx, time.Second*2)
 	defer cancel()
 	
-	row,err := repository.Conn.QueryContext(ctx, "SELECT USERNAME, PASSWORD, HASH, EMAIL, CREATED_DATE, CREATED_BY, STATUS, URL FROM USERS WHERE USERNAME = ?",Username)
-	defer row.Close()
+	row := repository.Conn.QueryRowContext(ctx, "SELECT USERNAME, PASSWORD, HASH, EMAIL, CREATED_DATE, CREATED_BY, STATUS, URL FROM USERS WHERE USERNAME = ?",Username)
+	//defer row.Close()
 
-	for row.Next(){
+	//for row.Next(){
 		var user models.Users
 		if err := row.Scan(&user.Username, &user.Password, &user.Hash, &user.Email, &user.Created_date, &user.Created_by, &user.Status, &user.Url); err != nil {
 			log.Println(err)
 			return nil, err
 		}
 		users = append(users, user)
-	}
+	//}
 	return users, nil 
 }

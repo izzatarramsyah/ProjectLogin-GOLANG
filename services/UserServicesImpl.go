@@ -2,9 +2,9 @@ package services
 
 import (
 	"log"
-	"../models"
-	"../interfaces"
-	_util "../util"
+	"github.com/izzatarramsyah/ProjectLogin-GOLANG/models"
+	"github.com/izzatarramsyah/ProjectLogin-GOLANG/interfaces"
+	_util "github.com/izzatarramsyah/ProjectLogin-GOLANG/util"
 )
 
 var err error

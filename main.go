@@ -4,10 +4,10 @@ import (
 	"log"
 	"fmt"
 	"net/http"
-	"./controller"
-	"./repository"
-	"./services"
-	_configuration "./config"
+	"github.com/izzatarramsyah/ProjectLogin-GOLANG/controller"
+	"github.com/izzatarramsyah/ProjectLogin-GOLANG/repository"
+	"github.com/izzatarramsyah/ProjectLogin-GOLANG/services"
+	_configuration "github.com/izzatarramsyah/ProjectLogin-GOLANG/config"
 	"database/sql"
 	"github.com/go-chi/chi"
 	"context"
@@ -27,7 +27,7 @@ func main() {
 	connection := fmt.Sprintf(dbUser + ":" + dbPass + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName + "?charset=utf8&parseTime=True")
 
 	log.Println(connection)
-	sqlConn,err := sql.Open("mysql", connection)
+	sqlConn,err := sql.Open("mysql", "root:password@tcp(godockerDB)/dev_apps")
 	c := context.Background()
 
 	if(err != nil){
@@ -40,10 +40,12 @@ func main() {
 	userService := &services.UserServices{Repo : userRepository}
 	userController := controller.UserController{Service : userService}
 
+
 	r := chi.NewRouter()
 	r.Post("/User/Registration", userController.UserRegis)
 	r.Post("/User/ListUsers", userController.GetUsers)
 	r.Post("/User/UserLogin", userController.UserLogin)
+	r.Get("/User/Test", userController.Test)
 
 	http.ListenAndServe(":8080", r)
 }
